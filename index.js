@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -30,6 +30,10 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/tweet", tweetRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`server listen at port ${process.env.PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(process.env.PORT || 8080, () => {
+    console.log(`server listen at port ${process.env.PORT || 8080}`);
+  });
+}
+
+export default app;
