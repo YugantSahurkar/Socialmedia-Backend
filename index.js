@@ -27,6 +27,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //api
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully!");
+});
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/tweet", tweetRoute);
 
