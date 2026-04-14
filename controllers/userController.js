@@ -90,7 +90,7 @@ export const Login = async (req, res) => {
     // Set token in cookie and respond
     return res
       .status(200)
-      .cookie("token", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+      .cookie("token", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, secure: true, sameSite: "none" })
       .json({
         message: `Welcome back, ${user.name}`,
         user,
@@ -107,7 +107,7 @@ export const Login = async (req, res) => {
 
 export const logout = (req, res) => {
   return res
-    .cookie("token", "", { expires: new Date(0), httpOnly: true })
+    .cookie("token", "", { expires: new Date(0), httpOnly: true, secure: true, sameSite: "none" })
     .json({
       message: "User logged out successfully.",
       success: true,
